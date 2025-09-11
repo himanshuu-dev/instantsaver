@@ -1,1 +1,192 @@
-Coming soon...
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Full Cover Image with Google Play Button</title>
+<style>
+  :root{
+    --btn-padding: 16px;
+    --btn-radius: 12px;
+    --btn-gap: 10px;
+    --badge-bg: rgba(0,0,0,0.6);
+    --badge-color: #fff;
+    --max-btn-width: 260px;
+  }
+
+  /* reset */
+  *{box-sizing:border-box;margin:0;padding:0}
+
+  html,body{
+    height:100%;
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
+
+  /* full-screen hero */
+  .hero{
+    position:relative;
+    width:100%;
+    height:100vh; /* fill viewport height */
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  /* use an img with object-fit for better accessibility and SEO */
+  .hero img.bg{
+    position:absolute;
+    inset:0; /* top/right/bottom/left: 0 */
+    width:100%;
+    height:100%;
+    object-fit:cover; /* cover whole area */
+    object-position:center;
+    z-index:0;
+    filter: none; /* change if you want overlay effects */
+  }
+
+  /* optional dark overlay for readable content */
+  .hero::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.28) 100%);
+    z-index:1;
+    pointer-events:none;
+  }
+
+  /* content area (centered) */
+  .content{
+    position:relative;
+    z-index:2;
+    text-align:center;
+    color: white;
+    padding: 2rem;
+    width: min(1100px, 95%);
+  }
+
+  .content h1{
+    font-size: clamp(1.4rem, 3.6vw, 3rem);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+  .content p{
+    font-size: clamp(.95rem, 1.6vw, 1.15rem);
+    opacity: .95;
+    margin-bottom: 1.2rem;
+  }
+
+  /* play badge container: fixed to bottom-right with paddings */
+  .play-badge{
+    position: fixed;
+    z-index: 3;
+    right: 24px;     /* horizontal padding from edge */
+    bottom: 24px;    /* vertical padding from edge */
+    display:flex;
+    align-items:center;
+    gap: var(--btn-gap);
+    background: var(--badge-bg);
+    color: var(--badge-color);
+    padding: calc(var(--btn-padding) / 1.15);
+    border-radius: var(--btn-radius);
+    text-decoration: none;
+    transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+    max-width: var(--max-btn-width);
+    backdrop-filter: blur(4px);
+  }
+
+  .play-badge:focus,
+  .play-badge:hover{
+    transform: translateY(-4px);
+    box-shadow: 0 16px 32px rgba(0,0,0,0.45);
+    background: rgba(0,0,0,0.72);
+  }
+
+  /* left icon */
+  .play-icon{
+    width: 40px;
+    height: 40px;
+    flex: 0 0 40px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  /* text area */
+  .play-text{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:2px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .play-text .small{
+    font-size: .72rem;
+    opacity: .85;
+  }
+  .play-text .big{
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  /* responsive adjustments */
+  @media (max-width:480px){
+    .play-badge{
+      right: 12px;
+      bottom: 12px;
+      padding: 10px;
+      gap:8px;
+      max-width: 200px;
+    }
+    .play-icon{ width:34px; height:34px; flex:0 0 34px }
+    .play-text .big{ font-size: .95rem }
+    .content h1{ font-size: 1.5rem }
+  }
+
+  /* If user prefers reduced motion */
+  @media (prefers-reduced-motion: reduce){
+    .play-badge, .play-badge:focus, .play-badge:hover{ transition: none; transform:none}
+  }
+</style>
+</head>
+<body>
+
+  <main class="hero" role="main" aria-label="Hero with app cover">
+    <!-- Replace the src with your cover image URL -->
+    <img class="bg" src="https://picsum.photos/id/1018/1920/1200" alt="App cover image showing the app feature" />
+
+    <!-- Center content (optional) -->
+    <div class="content">
+      <h1>InstantSaver — Video Downloader</h1>
+      <p>Save videos quickly from Instagram & Twitter. Paste a link, tap download, enjoy offline viewing.</p>
+    </div>
+
+    <!-- Google Play style badge (link to your Play Store URL) -->
+    <a class="play-badge" href="https://play.google.com/store/apps/details?id=com.instantsaver.app" target="_blank" rel="noopener noreferrer" aria-label="Get InstantSaver on Google Play">
+      <!-- SVG Play triangle + multi-color "Google Play" style mark -->
+      <div class="play-icon" aria-hidden="true">
+        <!-- simple Google Play-like triangle constructed with SVG -->
+        <svg width="40" height="40" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" role="img" focusable="false">
+          <path d="M47 25 L434 256 L47 487 Z" fill="#ffffff" opacity="0.01"/>
+          <path d="M118 47 430 234 118 423z" fill="#00A0FF"/>
+          <path d="M118 47 200 160 118 273z" fill="#FFD500"/>
+          <path d="M118 273 200 386 430 279z" fill="#00C853"/>
+          <path d="M430 234 200 386 430 279z" fill="#EA4335"/>
+        </svg>
+      </div>
+
+      <div class="play-text">
+        <span class="small">GET IT ON</span>
+        <span class="big">Google Play</span>
+      </div>
+    </a>
+  </main>
+
+</body>
+</html>
